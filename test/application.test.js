@@ -1,5 +1,6 @@
 import request from 'supertest'
-import expross from '../index.js'
+
+import { expross } from '..'
 
 describe('app', () => {
   it('should be callable', () => {

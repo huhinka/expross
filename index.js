@@ -1,1 +1,1 @@
-export { default } from './lib/expross.js'
+export { expross } from './lib/expross.js'
