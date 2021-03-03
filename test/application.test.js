@@ -23,4 +23,31 @@ describe('app.get', () => {
 
     done()
   })
+
+  it('should 404 without routes', async done => {
+    const res = await request(expross()).get('/')
+
+    expect(res.status).toBe(404)
+    done()
+  })
+
+  it('should 404 with error', async done => {
+    const app = expross()
+    app.get('/', async (req, res, next) => {
+      next()
+    })
+    app.get('/', async (req, res, next) => {
+      next(new Error('error'))
+    })
+    app.get('/', async (req, res) => {
+      res.send('third')
+    })
+
+    const res = await request(app).get('/')
+
+    expect(res.status).toBe(404)
+    expect(res.text).toBe('404: Error: error')
+
+    done()
+  })
 })
