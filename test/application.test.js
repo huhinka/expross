@@ -51,3 +51,36 @@ describe('app.get', () => {
     done()
   })
 })
+
+describe('app.use', () => {
+  it('could add middleware', async done => {
+    const app = expross()
+    app.use(async (req, res, next) => {
+      res.setHeader('x-router', 'x-router')
+      next()
+    })
+
+    const res = await request(app).get('/')
+
+    expect(res.header['x-router']).toBe('x-router')
+
+    done()
+  })
+
+  it('could use router as middleware', async done => {
+    const app = expross()
+    const router = expross.Router()
+
+    router.use(async (req, res, next) => {
+      res.setHeader('x-router', 'x-router')
+      next()
+    })
+    app.use('/', router)
+
+    const res = await request(app).get('/')
+
+    expect(res.header['x-router']).toBe('x-router')
+
+    done()
+  })
+})
