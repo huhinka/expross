@@ -8,3 +8,7 @@ Inspired by [expross](https://github.com/WangZhechao/expross).
 
 * ES6
 * TDD
+
+## Run
+
+For VS Code just run tests by `F5` or `npm run test`.
