@@ -28,6 +28,7 @@ describe('app.get', () => {
     const res = await request(expross()).get('/')
 
     expect(res.status).toBe(404)
+    expect(res.text).toBe('Cannot found [GET /] handler')
     done()
   })
 
@@ -46,7 +47,7 @@ describe('app.get', () => {
     const res = await request(app).get('/')
 
     expect(res.status).toBe(404)
-    expect(res.text).toBe('404: Error: error')
+    expect(res.text).toBe('Error: error')
 
     done()
   })
