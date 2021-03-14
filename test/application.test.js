@@ -50,6 +50,23 @@ describe('app.get', () => {
 
     done()
   })
+
+  it('should use final handler', async done => {
+    const app = expross()
+    app.get('/', async (req, res, next) => {
+      next(new Error('error'))
+    })
+    app.use((error, req, res, next) => {
+      res.send(`Oops ${error.message}`)
+    })
+
+    const res = await request(app).get('/')
+
+    expect(res.status).toBe(200)
+    expect(res.text).toBe('Oops error')
+
+    done()
+  })
 })
 
 describe('app.use', () => {
